@@ -27,3 +27,26 @@ const images = [
     alt: 'Zebras on Zebra',
   },
 ];
+
+const liHtmlArray = images.map(({ url, alt }) => {
+  // all manipulations on creating elements and adding them take place in memory, without affecting the DOM tree structure on the page
+  const li = document.createElement('li');
+  li.classList.add('gallery-item');
+
+  const img = document.createElement('img');
+  img.classList.add('gallery-image');
+  img.setAttribute('src', url);
+  img.setAttribute('alt', alt);
+  img.setAttribute('width', '360');
+  img.setAttribute('height', '300');
+
+  li.appendChild(img);
+
+  return li.outerHTML;
+});
+
+const htmlString = liHtmlArray.join('');
+
+const gallery = document.querySelector('.gallery');
+// only here the addition to the actual DOM takes place as a single add operation
+gallery.insertAdjacentHTML('beforeend', htmlString);
